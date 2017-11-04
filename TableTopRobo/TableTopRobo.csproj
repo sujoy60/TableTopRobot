@@ -42,11 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InstructionsClass.cs" />
+    <Compile Include="FinalizePositionInstructions.cs" />
+    <Compile Include="InstructionsReceived.cs" />
     <Compile Include="EnumOptions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Robot.cs" />
+    <Compile Include="RobotMovement.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

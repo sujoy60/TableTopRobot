@@ -10,59 +10,180 @@ namespace TableTopRobo
     {
 
         public Robot()
-        { }
+        {
+            LastError = "";
+        }
 
         private const int TABLE_TOP_SIZE = 5;
-        private int x;
-        private int y;
+        private int? _x;
+        private int? _y;
         private Facing _facing;
 
-        public string evaluateInstruction(string commandReceieved)
+        public string LastError { get; set; }
+
+        public bool Move()
         {
-            string commandReceieved  = 
+            if (MandateIsPlaced("move"))
+            {
+                int newx = GetXAfterMove();
+                int newy = GetYAfterMove();
+                if (IsRobotOnTable(newx, newy, "moved"))
+                {
+                    _x = newx;
+                    _y = newy;
+                    return true;
+                }
+            }
+            return false;
         }
 
-        public bool RobotMove()
+        private int GetXAfterMove()
         {
-
-            // this 
-
+            if (_facing == Facing.East)
+            {
+                return _x.Value + 1;
+            }
+            else
+            {
+                if (_facing == Facing.West)
+                {
+                    return _x.Value - 1;
+                }
+            }
+            return _x.Value;
         }
 
-        public bool RobotFacing
+        private int GetYAfterMove()
         {
-
+            if (_facing == Facing.North)
+            {
+                return _y.Value + 1;
+            }
+            else
+            {
+                if (_facing == Facing.South)
+                {
+                    return _y.Value - 1;
+                }
+            }
+            return _y.Value;
         }
 
-        public bool RobotPlaceAtBegining
+        public bool Left()
         {
-
+            return Turn(Direction.Left);
         }
 
-        public bool RobotNewPosition
+        public bool Right()
         {
-
+            return Turn(Direction.Right);
         }
 
-        public bool RobotEvaluateNewPosition
+        private bool Turn(Direction direction)
         {
-
+            if (MandateIsPlaced("turn"))
+            {
+                var facingAsNumber = (int)_facing;
+                facingAsNumber += 1 * (direction == Direction.Right ? 1 : -1);
+                if (facingAsNumber == 5) facingAsNumber = 1;
+                if (facingAsNumber == 0) facingAsNumber = 4;
+                _facing = (Facing)facingAsNumber;
+                return true;
+            }
+            return false;
         }
 
-        public bool NewPositionAcceptable
+        public string Report()
         {
-
+            if (MandateIsPlaced("report it's position"))
+            {
+                return String.Format("{0},{1},{2}", _x.Value, _y.Value, _facing.ToString().ToUpper());
+            }
+            return "";
         }
 
-        public bool NewPositionAcceptable
+        private bool MandateIsPlaced(string action)
         {
-
+            if (!_x.HasValue || !_y.HasValue)
+            {
+                LastError = String.Format("Robot cannot {0} until it has been placed on the table.", action);
+                return false;
+            }
+            return true;
         }
 
-        public bool ReportNewPosition
-        {
 
+        public bool Place(int x, int y, Facing facing)
+        {
+            if (IsRobotOnTable(x, y, "placed"))
+            {
+                _x = x;
+                _y = y;
+                _facing = facing;
+                return true;
+            }
+            return false;
         }
+
+        private bool IsRobotOnTable(int x, int y, string action)
+        {
+            if (x < 0 || y < 0 || x >= TABLE_TOP_SIZE || y >= TABLE_TOP_SIZE)
+            {
+                LastError = String.Format("Robot cannot be {0} there.", action);
+                return false;
+            }
+            return true;
+        }
+
+
+
+
+        //public string evaluateInstruction(string commandReceieved)
+        //{
+        //    //string commandReceieved  = 
+        //}
+
+        //public bool RobotMove()
+        //{
+
+        //    // this 
+
+        //}
+
+        //public bool RobotFacing
+        //{
+
+        //}
+
+        //public bool RobotPlaceAtBegining
+        //{
+
+        //}
+
+        //public bool RobotNewPosition
+        //{
+
+        //}
+
+        //public bool RobotEvaluateNewPosition
+        //{
+
+        //}
+
+        //public bool NewPositionAcceptable
+        //{
+
+        //}
+
+        //public bool NewPositionAcceptable
+        //{
+
+        //}
+
+        //public bool ReportNewPosition
+        //{
+
+        //}
 
     }
 }

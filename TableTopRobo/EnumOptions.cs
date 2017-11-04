@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace TableTopRobo
 {
-    class EnumOptions
-    {
-         public enum Instructions
+
+         public enum Instructions 
          {
             Invalid =0
             ,Place =1
@@ -35,5 +34,5 @@ namespace TableTopRobo
             ,   
         }
 
-    }
+
 }

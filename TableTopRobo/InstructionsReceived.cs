@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TableTopRobo
 {
-        public abstract class InstructionsClass
+        public abstract class InstructionsReceived  
         {
 
         }

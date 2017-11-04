@@ -12,7 +12,7 @@ namespace TableTopRobo
         {
             DisplayStartMessage();
 
-            var driver = new RobotMovements(new Robot());
+            var driver = new RobotMovement(new Robot());
 
             //while (true)
             //{
@@ -23,27 +23,7 @@ namespace TableTopRobo
                 }
                 Console.WriteLine(driver.Command(command));
             //}
-            //string  instructionEntered = Console.ReadLine().ToString().ToUpper();
-            //switch (instructionEntered)
-            //    {
-            //        case "PLACE":
-            //        string evaluateInstruction
-            //        break;
 
-            //        case "MOVE":
-            //        break;
-        
-            //        case "RIGHT":
-            //        break;
-               
-            //        case "REPORT":
-            //        Console.WriteLine("Case 1");
-            //        break;
-
-            //        default:
-            //        Console.WriteLine ("Invalid command.");
-            //        break;
-            //    };
         }
 
         private static void DisplayStartMessage()
