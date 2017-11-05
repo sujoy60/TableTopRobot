@@ -10,14 +10,79 @@ namespace TableTopRobo
     {
         public RobotMovement(Robot robo)
         {
-            this.Robot = robo;
+            this.RobotObj = robo;
         }
 
-        public Robot Robot { get; set; }
+        public Robot RobotObj { get; set; }
+
+        public string CommandReceived(string command)
+        {
+            string response = "";
+            InstructionsReceived args = null;
+            var instruction = GetInstruction(command, ref args);
+
+            switch (instruction)
+            {
+                case Instructions.Place:
+                    //FinalizePositionInstructions f1 = new FinalizePositionInstructions();
+                    var placeArgs = (FinalizePositionInstructions)args;
+                    if (RobotObj.Place(placeArgs.X, placeArgs.Y, placeArgs.Facing))
+                    //Robot r1 = new Robot();
+                    //var boolReturned = r1.Place(placeArgs.X, placeArgs.Y, placeArgs.Facing);
+                    //r1.Place(0,0,Facing.East); //
+                    //if ((boolReturned))
+                    {
+                        response = "Done.";
+                    }
+                    else
+                    {
+                        response = RobotObj.LastError;
+                    }
+                    break;
+                case Instructions.Move:
+                    if (RobotObj.Move())
+                    {
+                        response = "Done.";
+                    }
+                    else
+                    {
+                        response = RobotObj.LastError;
+                    }
+                    break;
+                case Instructions.Left:
+                    if (RobotObj.Left())
+                    {
+                        response = "Done.";
+                    }
+                    else
+                    {
+                        response = RobotObj.LastError;
+                    }
+                    break;
+                case Instructions.Right:
+                    if (RobotObj.Right())
+                    {
+                        response = "Done.";
+                    }
+                    else
+                    {
+                        response = RobotObj.LastError;
+                    }
+                    break;
+                case Instructions.Report:
+                    response = RobotObj.Report();
+                    break;
+                default:
+                    response = "Invalid command.";
+                    break;
+            }
+            return response;
+
+        }
 
         private Instructions GetInstruction(string command, ref InstructionsReceived args)
         {
-            InstructionsReceived result;
+            Instructions result;
             string argString = "";
 
             int parseArgsSeperator = command.IndexOf(" ");
@@ -45,7 +110,7 @@ namespace TableTopRobo
             return result;
         }
 
-        private bool TryParsePlaceArgs(string argString, ref Instructions args)
+        private bool TryParsePlaceArgs(string argString, ref InstructionsReceived args)
         {
             var argParts = argString.Split(',');
             int x, y;
@@ -56,13 +121,9 @@ namespace TableTopRobo
                 TryGetCoordinate(argParts[1], out y) &&
                 TryGetFacingDirection(argParts[2], out facing))
                 {
-                args = new FinalizePositionInstructions
+                        args = new FinalizePositionInstructions
                         { X=x,Y=y,Facing = facing };
-                //X = x,
-                //Y = y,
-                //Facing = facing
-
-                return true;
+                        return true;
                 }
                 return false;
         }
@@ -78,40 +139,6 @@ namespace TableTopRobo
         }
 
 
-        public string CommandReceived(string command)
-        {
-            //string instructionEntered = Console.ReadLine().ToString().ToUpper();
-            string response = "";
-            Instructions args = null;
-            var instructionEntered = GetInstruction(command, ref args);
-
-
-            switch (instructionEntered)
-            {
-                case Instructions.Place:
-
-                    var placeArgs = (FinalizePositionInstructions)args;
-                    if (Robot.Place(placeArgs.X, placeArgs.Y, placeArgs.Facing))
-                    {
-                        response = "Done.";
-                    }
-                    break;
-
-                case "MOVE":
-                    break;
-
-                case "RIGHT":
-                    break;
-
-                case "REPORT":
-                    Console.WriteLine("Case 1");
-                    break;
-
-                default:
-                    Console.WriteLine("Invalid command.");
-                    break;
-            };
-
-        }
+   
     }
 }

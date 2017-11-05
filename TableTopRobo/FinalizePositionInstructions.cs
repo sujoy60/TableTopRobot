@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TableTopRobo
 {
-    public  class FinalizePositionInstructions :InstructionsReceived
+    public class FinalizePositionInstructions :InstructionsReceived
     {
         public int X { get; set; }
         public int Y { get; set; }

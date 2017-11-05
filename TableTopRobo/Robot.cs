@@ -21,6 +21,18 @@ namespace TableTopRobo
 
         public string LastError { get; set; }
 
+        public bool Place(int x, int y, Facing facing)
+        {
+            if (IsRobotOnTable(x, y, "placed"))
+            {
+                _x = x;
+                _y = y;
+                _facing = facing;
+                return true;
+            }
+            return false;
+        }
+
         public bool Move()
         {
             if (MandateIsPlaced("move"))
@@ -113,17 +125,7 @@ namespace TableTopRobo
         }
 
 
-        public bool Place(int x, int y, Facing facing)
-        {
-            if (IsRobotOnTable(x, y, "placed"))
-            {
-                _x = x;
-                _y = y;
-                _facing = facing;
-                return true;
-            }
-            return false;
-        }
+
 
         private bool IsRobotOnTable(int x, int y, string action)
         {
@@ -135,55 +137,6 @@ namespace TableTopRobo
             return true;
         }
 
-
-
-
-        //public string evaluateInstruction(string commandReceieved)
-        //{
-        //    //string commandReceieved  = 
-        //}
-
-        //public bool RobotMove()
-        //{
-
-        //    // this 
-
-        //}
-
-        //public bool RobotFacing
-        //{
-
-        //}
-
-        //public bool RobotPlaceAtBegining
-        //{
-
-        //}
-
-        //public bool RobotNewPosition
-        //{
-
-        //}
-
-        //public bool RobotEvaluateNewPosition
-        //{
-
-        //}
-
-        //public bool NewPositionAcceptable
-        //{
-
-        //}
-
-        //public bool NewPositionAcceptable
-        //{
-
-        //}
-
-        //public bool ReportNewPosition
-        //{
-
-        //}
 
     }
 }

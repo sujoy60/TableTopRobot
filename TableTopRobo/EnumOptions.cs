@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TableTopRobo
 {
 
-         public enum Instructions 
+         public enum Instructions :byte
          {
             Invalid =0
             ,Place =1
@@ -18,8 +18,8 @@ namespace TableTopRobo
             ,
          }
 
-        public enum Facing
-        {
+        public enum Facing : byte
+    {
              North = 1
            , South = 2
            , East = 3
@@ -27,8 +27,8 @@ namespace TableTopRobo
            ,
         }
 
-        public enum Direction
-        {
+        public enum Direction : byte
+    {
             Left = 1
             ,Right =2
             ,   

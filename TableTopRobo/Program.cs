@@ -14,15 +14,15 @@ namespace TableTopRobo
 
             var driver = new RobotMovement(new Robot());
 
-            //while (true)
-            //{
+            while (true)
+            {
                 string command = PromptForCommand();
                 if (command.ToUpper() == "EXIT" || command.ToUpper() == "QUIT")
                 {
                     Environment.Exit(0);
                 }
-                Console.WriteLine(driver.Command(command));
-            //}
+                Console.WriteLine(driver.CommandReceived(command));
+            }
 
         }
 
