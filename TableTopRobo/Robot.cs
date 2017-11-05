@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TableTopRobo
 {
-    class Robot
+    public class Robot
     {
 
         public Robot()
